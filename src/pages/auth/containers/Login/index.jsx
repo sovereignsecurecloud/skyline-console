@@ -68,12 +68,18 @@ export class Login extends Component {
   }
 
   get productName() {
-    const { product_name = { zh: t('Cloud Platform'), en: 'Cloud Platform' } } =
-      this.info;
+    const {
+      product_name = {
+        zh: t('TCS SovereignSecure Cloud'),
+        en: 'TCS SovereignSecure Cloud',
+      },
+    } = this.info;
     const { getLocaleShortName } = i18n;
     const language = getLocaleShortName();
     const name =
-      product_name[language] || t('Cloud Platform') || 'Cloud Platform';
+      product_name[language] ||
+      t('TCS SovereignSecure Cloud') ||
+      'TCS SovereignSecure Cloud';
     return t('Welcome to {name}', { name });
   }
 
