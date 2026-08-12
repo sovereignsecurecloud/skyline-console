@@ -1,0 +1,5 @@
+--- a/src/asset/template/index.html
++++ b/src/asset/template/index.html
+@@ -6,1 +6,1 @@
+-    <title>Cloud</title>
++    <title>TCS SovereignSecure Cloud</title>

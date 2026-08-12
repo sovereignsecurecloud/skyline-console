@@ -1,0 +1,5 @@
+--- a/src/pages/compute/containers/Instance/actions/Resize.jsx
++++ b/src/pages/compute/containers/Instance/actions/Resize.jsx
+@@ -250,1 +250,1 @@
+-        content: t('Agree to force shutdown'),
++        content: 'Agree to force shutdown/Agree to Live ScaleUp',

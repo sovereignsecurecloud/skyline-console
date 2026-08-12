@@ -1,0 +1,5 @@
+--- a/src/components/FormItem/InternationalPhoneNumberInput/index.jsx
++++ b/src/components/FormItem/InternationalPhoneNumberInput/index.jsx
+@@ -61,1 +61,1 @@
+-  value: '+86 ',
++  value: '+91 ',

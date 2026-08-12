@@ -1,0 +1,18 @@
+--- a/src/pages/auth/containers/Login/index.jsx
++++ b/src/pages/auth/containers/Login/index.jsx
+@@ -71,2 +71,2 @@
+-    const { product_name = { zh: t('Cloud Platform'), en: 'Cloud Platform' } } =
++    const { product_name = { zh: t('TCS SovereignSecure Cloud'), en: 'TCS SovereignSecure Cloud' } } =
+       this.info;
+@@ -75,2 +75,9 @@
+-      product_name[language] || t('Cloud Platform') || 'Cloud Platform';
++      product_name[language] || t('TCS SovereignSecure Cloud') || 'TCS SovereignSecure Cloud';
+     return t('Welcome to {name}', { name });
+   }
++
++  get regions() {
++    return (this.store.regions || []).map((it) => ({
++      label: it,
++      value: it,
++    }));
++  }
