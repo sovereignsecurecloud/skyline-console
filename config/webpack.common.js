@@ -17,15 +17,15 @@ const { normalize, resolve } = require('path');
 // const path = require("path");
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 const moment = require('moment');
+const crypto = require("crypto");
 const { getGlobalVariables, getCustomStyleVariables } = require('./utils');
 
 const root = (path) => resolve(__dirname, `../${path}`);
 const version = moment().unix();
 
 // (jamesdenton) Remove once libs no longer hardcode the hashing algorithm
-const crypto = require("crypto");
 const crypto_orig_createHash = crypto.createHash;
-crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "md5" : algorithm);
+crypto.createHash = algorithm => crypto_orig_createHash(algorithm === "md4" ? "md5" : algorithm);
 
 module.exports = {
   module: {
@@ -98,7 +98,7 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 10240,
+              limit: 100000,
               name: normalize(`asset/image/[name].${version}.[ext]`),
             },
           },

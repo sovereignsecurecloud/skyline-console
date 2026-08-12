@@ -168,15 +168,7 @@
     }
 
     .ant-menu-item > span::before {
-      position: absolute;
-      top: 18px;
-      bottom: 0;
-      left: 30px;
-      width: 5px;
-      height: 5px;
-      background-color: @sider-sub-menu-item-dot-color;
-      border-radius: 50%;
-      content: '';
+      display: none !important;
     }
 
     .ant-menu-item {
@@ -306,7 +298,6 @@
   background-color: @sider-background;
   border-right: @sider-border-right;
   transition: all 0.2s;
-  // border-right: 1px solid #e5e6eb;
 }
 
 .base-layout-sider-collapsed {
@@ -318,7 +309,7 @@
     padding-left: 0;
 
     .menu-item-collapsed {
-      padding-left: 12px !important;
+      padding-left: 10px !important;
       text-overflow: inherit;
     }
   }

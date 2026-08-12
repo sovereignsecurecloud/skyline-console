@@ -24,6 +24,8 @@ import globalRootStore from 'stores/root';
 import styles from './style.less';
 import QuotaOverview from './components/QuotaOverview';
 import ProjectInfo from './components/ProjectInfo';
+import InstanceStatusBreakdown from './components/InstanceStatusBreakdown';
+import NetworkSecuritySummary from './components/NetworkSecuritySummary';
 
 const actions = [
   {
@@ -31,24 +33,28 @@ const actions = [
     label: t('Instances'),
     avatar: overviewInstance,
     to: '/compute/instance',
+    subtitle: t('Virtual Compute Workloads'),
   },
   {
     key: 'volume',
     label: t('Volumes'),
     avatar: overviewVolume,
     to: '/storage/volume',
+    subtitle: t('Persistent Block Storage'),
   },
   {
     key: 'network',
     label: t('Networks'),
     avatar: overviewNetwork,
     to: '/network/networks',
+    subtitle: t('Virtual Subnets & VLANs'),
   },
   {
     key: 'router',
     label: t('Routers'),
     avatar: overviewRouter,
     to: '/network/router',
+    subtitle: t('Gateways & L3 Forwarding'),
   },
 ];
 
@@ -68,53 +74,56 @@ export class Overview extends Component {
   }
 
   renderAction = (item) => (
-    <Row className={styles['action-button']}>
-      <Col span={8} className={styles['main-icon']}>
-        <img alt="avatar" src={item.avatar} className={styles['action-icon']} />
-      </Col>
-      <Col span={16} style={{ textAlign: 'center' }}>
-        {item.label}
-      </Col>
-    </Row>
+    <div className={styles['action-card']}>
+      <div className={styles['icon-wrapper']}>
+        <img alt={item.label} src={item.avatar} className={styles['action-icon']} />
+      </div>
+      <div className={styles['action-text']}>
+        <div className={styles['action-title']}>{item.label}</div>
+        <div className={styles['action-subtitle']}>{item.subtitle}</div>
+      </div>
+    </div>
   );
 
   renderActions() {
     return this.filterActions.map((item) => (
-      <Col span={this.span} key={item.key}>
-        <Link to={item.to}>{this.renderAction(item)}</Link>
+      <Col span={this.span} key={item.key} xs={24} sm={12} md={this.span}>
+        <Link to={item.to} className={styles['action-link']}>
+          {this.renderAction(item)}
+        </Link>
       </Col>
     ));
-  }
-
-  renderQuota() {
-    return <QuotaOverview />;
-  }
-
-  renderProject() {
-    return <ProjectInfo />;
-  }
-
-  renderExtra() {
-    return null;
   }
 
   render() {
     return (
       <div className={styles.container}>
-        <Row
-          justify="space-between"
-          gutter={16}
-          style={{ marginBottom: '16px' }}
-        >
+        {/* 1. Hero Welcome Header */}
+        <Row style={{ marginBottom: 20 }}>
+          <Col span={24}>
+            <ProjectInfo />
+          </Col>
+        </Row>
+
+        {/* 2. Quick Access Shortcuts Row */}
+        <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
           {this.renderActions()}
         </Row>
-        <Row gutter={16}>
-          <Col span={16} className={styles.left}>
-            {this.renderQuota()}
+
+        {/* 3. Instance Status & Network Security Health Summaries */}
+        <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
+          <Col span={12} xs={24} lg={12}>
+            <InstanceStatusBreakdown />
           </Col>
-          <Col span={8} className={styles.right}>
-            {this.renderProject()}
-            {this.renderExtra()}
+          <Col span={12} xs={24} lg={12}>
+            <NetworkSecuritySummary />
+          </Col>
+        </Row>
+
+        {/* 4. Resource Quota Monitors */}
+        <Row gutter={[16, 16]}>
+          <Col span={24}>
+            <QuotaOverview />
           </Col>
         </Row>
       </div>

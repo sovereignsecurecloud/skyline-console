@@ -341,35 +341,19 @@ export class QuotaOverview extends Component {
   renderQuotaCardList = () => {
     const { isLoading } = this.state;
     return (
-      <Row className={styles.content}>
+      <Row className={styles.content} gutter={[16, 16]}>
         {this.quotaCardList.map((item) => (
-          <Col className={styles.card} span={24} key={item.type}>
+          <Col className={styles.card} span={12} key={item.type} xs={24} lg={12}>
             <Card
               title={item.text}
               bordered={false}
               loading={isLoading}
               size="small"
             >
-              <Row gutter={24}>{this.renderQuotaCardContent(item)}</Row>
+              <Row gutter={[16, 12]}>{this.renderQuotaCardContent(item)}</Row>
             </Card>
           </Col>
         ))}
-        {this.enableCinder ? (
-          <Col
-            className={styles.card}
-            span={24}
-            key={this.volumeTypesQuota.type}
-          >
-            <Card
-              title={this.volumeTypesQuota.text}
-              bordered={false}
-              loading={isLoading}
-              size="small"
-            >
-              {this.renderVolumeTypes()}
-            </Card>
-          </Col>
-        ) : null}
       </Row>
     );
   };

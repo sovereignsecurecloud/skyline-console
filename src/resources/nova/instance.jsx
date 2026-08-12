@@ -15,6 +15,7 @@
 import React from 'react';
 import ImageType from 'components/ImageType';
 import { Tag, Tooltip } from 'antd';
+import { getIpRender } from 'src/utils/table';
 import { ActionLogStore } from 'stores/nova/action-log';
 import { ironicOriginEndpoint } from 'client/client/constants';
 import { projectTagsColors } from 'src/utils/constants';
@@ -327,36 +328,16 @@ export const instanceColumnsBackend = [
   {
     title: t('Instance IP'),
     dataIndex: 'fixed_addresses',
-    width: 120,
+    width: 140,
     sorter: false,
-    render: (fixed_addresses) => {
-      if (!fixed_addresses || !fixed_addresses.length) {
-        return '-';
-      }
-      return fixed_addresses.map((it) => (
-        <span key={it}>
-          {it}
-          <br />
-        </span>
-      ));
-    },
+    render: (fixed_addresses) => getIpRender(fixed_addresses),
   },
   {
     title: t('Floating IP'),
     dataIndex: 'floating_addresses',
-    width: 120,
+    width: 140,
     sorter: false,
-    render: (addresses) => {
-      if (!addresses || !addresses.length) {
-        return '-';
-      }
-      return addresses.map((it) => (
-        <span key={it}>
-          {it}
-          <br />
-        </span>
-      ));
-    },
+    render: (addresses) => getIpRender(addresses),
   },
   {
     title: t('Flavor'),

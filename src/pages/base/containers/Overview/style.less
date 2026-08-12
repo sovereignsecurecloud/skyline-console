@@ -3,174 +3,379 @@
 
 .container {
   height: 100%;
-  padding: @overview-padding;
+  padding: 24px;
   overflow: auto;
+  background-color: #f8fafc;
 
-  .main-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  /* Hero Welcome Banner */
+  .hero-banner {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 14px;
+    padding: 28px 32px;
+    color: #ffffff;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
 
-  .action-button {
-    color: #a3a3a3;
-    font-size: 18px;
-    line-height: 88px;
-    background: #fff;
-    border-radius: @border-radius;
-    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 9%);
-    opacity: 0.9;
-  }
-
-  .action-icon {
-    display: block;
-    width: 50px;
-    height: 50px;
-    margin-left: 60px;
-  }
-
-  :global {
-    .ant-card {
-      box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 9%);
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    .ant-card-head {
+    .welcome-tag {
+      display: inline-block;
+      margin-bottom: 8px;
+
+      :global {
+        .ant-badge-status-text {
+          color: #94a3b8;
+          font-size: 13px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .hero-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 6px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin: 0;
+
+      strong {
+        color: #38bdf8;
+        font-weight: 600;
+      }
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .info-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 10px 18px;
+
+      .pill-icon {
+        font-size: 18px;
+        color: #38bdf8;
+      }
+
+      .pill-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .pill-label {
+        font-size: 11px;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .pill-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: #f8fafc;
+      }
+
+      .pill-tags {
+        display: flex;
+        gap: 4px;
+        margin-top: 2px;
+      }
+
+      .role-tag {
+        border-radius: 4px;
+        font-size: 12px;
+        margin: 0;
+      }
+    }
+  }
+
+  /* Shortcut Action Cards */
+  .action-link {
+    text-decoration: none !important;
+    display: block;
+  }
+
+  .action-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px -4px rgba(12, 99, 250, 0.12);
+      border-color: #3b82f6;
+
+      .icon-wrapper {
+        background: #e8f2ff;
+        transform: scale(1.05);
+      }
+    }
+
+    .icon-wrapper {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .action-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .action-text {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .action-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.3;
+    }
+
+    .action-subtitle {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  /* Status Breakdown & Network Cards */
+  .status-breakdown-card,
+  .recent-instances-card,
+  .network-security-card {
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04) !important;
+    overflow: hidden;
+
+    :global {
+      .ant-card-head {
+        border-bottom: 1px solid #f1f5f9;
+        padding: 16px 24px !important;
+        background: #ffffff;
+
+        .ant-card-head-title {
+          font-size: 17px;
+          font-weight: 700;
+          color: #0f172a;
+        }
+      }
+
+      .ant-card-body {
+        padding: 20px 24px !important;
+      }
+    }
+  }
+
+  /* Instance Health Stat Box */
+  .stat-box {
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 10px;
+    padding: 14px 16px;
+
+    .stat-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .stat-title {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .icon-total {
+      color: #0c63fa;
+      font-size: 16px;
+    }
+
+    .icon-active {
+      color: #52c41a;
+      font-size: 16px;
+    }
+
+    .icon-shutoff {
+      color: #faad14;
+      font-size: 16px;
+    }
+
+    .icon-error {
+      color: #ff4d4f;
       font-size: 16px;
     }
   }
 
-  .left {
-    height: 100%;
+  /* Network Stat Box */
+  .net-stat-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 10px;
+    padding: 14px 16px;
 
-    .top {
-      .title {
-        display: table-cell;
-        vertical-align: bottom;
+    .net-icon-blue {
+      font-size: 24px;
+      color: #0c63fa;
+    }
 
-        .text {
-          color: #252525;
-          font-size: 21px;
-        }
+    .net-icon-green {
+      font-size: 24px;
+      color: #52c41a;
+    }
 
-        .action {
-          margin-left: 40px;
-          color: #000;
-          font-size: 16px;
-        }
+    .net-icon-purple {
+      font-size: 24px;
+      color: #722ed1;
+    }
+
+    .net-icon-orange {
+      font-size: 24px;
+      color: #fa8c16;
+    }
+
+    :global {
+      .ant-statistic-title {
+        font-size: 12px;
+        color: #64748b;
+        margin-bottom: 2px;
+      }
+
+      .ant-statistic-content-value {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0f172a;
       }
     }
-  }
-
-  .right {
-    height: 100%;
-
-    .project {
-      position: relative;
-
-      .meta {
-        margin-bottom: 16px;
-        padding-bottom: 16px;
-        border-bottom: 1px dashed #e8e8e8;
-      }
-
-      :global {
-        .ant-descriptions-item-label {
-          width: 130px;
-        }
-      }
-    }
-  }
-}
-
-.outer {
-  position: relative;
-  width: 100%;
-  height: 10rem;
-  overflow: hidden;
-  font-size: 12px;
-
-  .inner {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
-  }
-
-  .inner::-webkit-scrollbar {
-    display: none;
   }
 }
 
 .bottom {
-  border-radius: @border-radius;
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04) !important;
+  overflow: hidden;
 
   :global {
-    .ant-card {
-      box-shadow: unset;
-    }
-
-    .ant-card-body {
-      padding: 0 !important;
+    .ant-card-head {
+      border-bottom: 1px solid #f1f5f9;
+      padding: 16px 24px !important;
+      background: #ffffff;
     }
   }
 
   .title {
+    display: flex;
+    align-items: center;
+
     .text {
-      color: #252525;
-      font-size: 16px;
+      color: #0f172a;
+      font-size: 17px;
+      font-weight: 700;
     }
 
     .badge {
-      margin-left: 22px;
+      margin-left: 20px;
 
       :global {
         .ant-badge-status-dot {
-          width: 10px;
-          height: 10px;
+          width: 8px;
+          height: 8px;
         }
 
         .ant-badge-status-text {
-          font-size: 14px;
+          font-size: 13px;
+          color: #475569;
+          font-weight: 500;
         }
       }
     }
   }
 
-  .action {
-    float: right;
-    margin-top: 6px;
-    color: @primary-color;
-    font-size: 12px;
-    cursor: pointer;
-  }
-
   .content {
+    padding: 16px 20px;
+
     .card {
-      padding: 8px;
+      padding: 8px 0;
 
       :global {
+        .ant-card {
+          border-radius: 10px;
+          border: 1px solid #f1f5f9;
+          background: #fafafa;
+          box-shadow: none !important;
+        }
+
         .ant-card-head {
           border-bottom: none;
 
           .ant-card-head-title {
-            padding-bottom: 0;
-            color: #565656;
-            font-weight: 500;
-            font-size: 16px;
+            padding: 12px 16px 4px 16px;
+            color: #334155;
+            font-weight: 700;
+            font-size: 15px;
           }
         }
 
         .ant-card-body {
-          padding: 12px !important;
-          box-shadow: unset !important;
+          padding: 12px 16px 16px 16px !important;
         }
       }
 
       .progress-title {
         overflow: hidden;
-        font-size: 14px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #334155;
         white-space: nowrap;
         text-overflow: ellipsis;
       }

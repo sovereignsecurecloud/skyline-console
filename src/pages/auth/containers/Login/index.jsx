@@ -239,13 +239,13 @@ export class Login extends Component {
     const submitItem = {
       name: 'submit',
       render: () => (
-        <Row gutter={8}>
-          <Col span={12}>
+        <Row gutter={8} justify="end">
+          <Col span={24} style={{ textAlign: 'right' }}>
             <Button
               loading={loading}
               type="primary"
               htmlType="submit"
-              className="login-form-button"
+              className={styles['login-form-button']}
             >
               {t('Log in')}
             </Button>
@@ -438,13 +438,20 @@ export class Login extends Component {
   }
 
   renderExtra() {
-    return null;
+    return (
+      <p className={styles.disclaimer}>
+        {t('Access restricted to authorized personnel only.')}
+      </p>
+    );
   }
 
   render() {
     return (
-      <>
-        <h1 className={styles.welcome}>{this.productName}</h1>
+      <div className={styles['login-card-content']}>
+        <h1 className={styles.welcome}>{t('Sign In')}</h1>
+        <p className={styles.subwelcome}>
+          {t('Enter your email or domain credentials to sign in.')}
+        </p>
         <SimpleForm
           formItems={this.formItems}
           name="normal_login"
@@ -455,7 +462,7 @@ export class Login extends Component {
           size="large"
         />
         {this.renderExtra()}
-      </>
+      </div>
     );
   }
 }

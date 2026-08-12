@@ -192,6 +192,45 @@ export const getIdRender = (value, copyable = true, isLink = true) => {
   );
 };
 
+export const getIpRender = (ip, copyable = true) => {
+  if (!ip || (isArray(ip) && ip.length === 0)) {
+    return '-';
+  }
+  if (isArray(ip)) {
+    return ip.map((item) => (
+      <div key={item} style={{ marginBottom: 2 }}>
+        {getIpRender(item, copyable)}
+      </div>
+    ));
+  }
+  const ipStr = `${ip}`;
+  if (!copyable) {
+    return <span>{ipStr}</span>;
+  }
+  const onClick = (e) => {
+    if (e) {
+      const { nodeName = '', className = '' } = e.target || {};
+      const copyNodeNames = ['svg', 'path'];
+      const isCopyClick =
+        copyNodeNames.includes(nodeName) ||
+        (isString(className) && className.includes('copy'));
+      if (isCopyClick && e.stopPropagation) {
+        return e.stopPropagation();
+      }
+    }
+  };
+  return (
+    <Paragraph
+      copyable={{ text: ipStr }}
+      className={classnames('no-wrap', 'no-margin-bottom', 'inline-block')}
+      onClick={onClick}
+      style={{ marginBottom: 0 }}
+    >
+      <span>{ipStr}</span>
+    </Paragraph>
+  );
+};
+
 const isNameBold = (dataIndex, title, boldName, withoutId) => {
   return boldName === undefined
     ? withoutId
@@ -200,12 +239,11 @@ const isNameBold = (dataIndex, title, boldName, withoutId) => {
     : boldName;
 };
 
-export const getNameRenderWithStyle = (name, isBold) => {
-  const style = isBold
-    ? {
-        fontWeight: 'bold',
-      }
-    : {};
+export const getNameRenderWithStyle = (name, _isBold) => {
+  const style = {
+    fontWeight: 600,
+    fontSize: '15px',
+  };
   return <div style={style}>{name || '-'}</div>;
 };
 
@@ -237,25 +275,24 @@ export const getNameRender = (render, column, rowKey) => {
     }
     const isBold = isNameBold(dataIndex, title, boldName, false);
     const nameValue = value || get(record, dataIndex) || '-';
-    const nameRender = getNameRenderWithStyle(nameValue, isBold);
-    const idRender = getIdRender(idValue, copyable, !!url);
-    if (hasNoDetail) {
+    const idRender = getIdRender(idValue, copyable, false);
+    if (hasNoDetail || !url) {
       return (
         <div>
+          {getNameRenderWithStyle(nameValue, isBold)}
           <div>{idRender}</div>
-          {nameRender}
         </div>
       );
     }
-    if (!url && !hasNoDetail) {
-      return nameRender;
-    }
+    const nameLink = (
+      <Link to={url} className="link-class" style={{ fontWeight: 600, fontSize: '15px' }}>
+        {nameValue}
+      </Link>
+    );
     return (
       <div>
-        <div>
-          <Link to={url}>{idRender}</Link>
-        </div>
-        {nameRender}
+        <div>{nameLink}</div>
+        <div>{idRender}</div>
       </div>
     );
   };
@@ -282,43 +319,41 @@ export const getNameRenderByRouter = (render, column, rowKey) => {
   } = column;
   return (value, record) => {
     const nameValue = value || get(record, dataIndex) || '-';
-    const isBold = isNameBold(dataIndex, title, boldName, withoutId);
-    const nameRender = getNameRenderWithStyle(nameValue, isBold);
+    const _isBold = isNameBold(dataIndex, title, boldName, withoutId);
     const currentRouteName = getRouteName
       ? getRouteName(value, record)
       : routeName;
     if (!currentRouteName) {
-      return nameValue;
+      return <div style={{ fontWeight: 600, fontSize: '15px' }}>{nameValue}</div>;
     }
     const idValue = get(record, idKey || rowKey);
     if (!idValue) {
       return emptyRender ? emptyRender() : '-';
     }
-    const idRender = getIdRender(idValue, copyable, true);
+    const idRender = getIdRender(idValue, copyable, false);
     const params = routeParamsFunc
       ? routeParamsFunc(record)
       : { [routeParamsKey]: idValue };
     const query = routeQuery;
-    if (!withoutId) {
-      const link = getLinkRender({
-        key: currentRouteName,
-        params,
-        query,
-        value: idRender,
-      });
-      return (
-        <div>
-          <div>{link}</div>
-          {!withoutName && nameRender}
-        </div>
-      );
-    }
+    const nameLinkRender = (
+      <span className="link-class" style={{ fontWeight: 600, fontSize: '15px' }}>
+        {nameValue}
+      </span>
+    );
     const link = getLinkRender({
       key: currentRouteName,
       params,
       query,
-      value: nameRender,
+      value: nameLinkRender,
     });
+    if (!withoutId) {
+      return (
+        <div>
+          <div>{link}</div>
+          {!withoutName && <div>{idRender}</div>}
+        </div>
+      );
+    }
     return <div>{link}</div>;
   };
 };
@@ -331,8 +366,8 @@ export const idNameColumn = {
     const nameRender = getNameRenderWithStyle(value, true);
     return (
       <>
-        <div>{idRender}</div>
         {nameRender}
+        <div>{idRender}</div>
       </>
     );
   },
@@ -376,17 +411,26 @@ export const getProjectRender = (render) => {
     }
     const { hasAdminRole } = globalRootStore;
     const hasLink = !!hasAdminRole;
-    let idRender = null;
+    const idRender = getIdRender(projectId, true, false);
+    const projectName = value || '-';
     if (hasLink) {
       const url = `/identity/project-admin/detail/${projectId}`;
-      idRender = <Link to={url}>{getIdRender(projectId, true, true)}</Link>;
-    } else {
-      idRender = getIdRender(projectId, true, false);
+      const projectLink = (
+        <Link to={url} className="link-class" style={{ fontWeight: 600, fontSize: '15px' }}>
+          {projectName}
+        </Link>
+      );
+      return (
+        <>
+          <div>{projectLink}</div>
+          <div>{idRender}</div>
+        </>
+      );
     }
     return (
       <>
+        <div style={{ fontWeight: 600, fontSize: '15px' }}>{projectName}</div>
         <div>{idRender}</div>
-        <div>{value || '-'}</div>
       </>
     );
   };

@@ -64,7 +64,7 @@ const renderMenu = (t) => {
         },
         {
           path: '/compute/instance-snapshot-admin',
-          name: t('Instance Snapshots'),
+          name: t('Snapshots'),
           key: 'instanceSnapshotAdmin',
           level: 1,
           children: [

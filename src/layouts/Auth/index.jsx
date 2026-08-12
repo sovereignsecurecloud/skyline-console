@@ -17,9 +17,9 @@ import { inject, observer } from 'mobx-react';
 import renderRoutes from 'utils/RouterConfig';
 import SelectLang from 'components/SelectLang';
 
-import logo from 'asset/image/logo.png';
-import loginFullImage from 'asset/image/login-full.png';
-import loginRightLogo from 'asset/image/loginRightLogo.png';
+import tcsLogo from 'asset/image/tcs_logo.png';
+import tcssscwhite from 'asset/image/ssc_white.png';
+import backgroundDark from 'asset/image/background_dark.png';
 import styles from './index.less';
 
 export class AuthLayout extends Component {
@@ -35,14 +35,23 @@ export class AuthLayout extends Component {
         <img
           alt=""
           className={styles['login-full-image']}
-          src={loginFullImage}
+          src={backgroundDark}
         />
-        <div className={styles['full-image-front']} />
-        <img
-          src={loginRightLogo}
-          alt=""
-          className={styles['login-right-logo']}
-        />
+        <div className={styles['right-top-logo']}>
+          <img
+            src={tcsLogo}
+            alt="TCS Logo"
+            className={styles['login-right-logo']}
+          />
+        </div>
+        <div className={styles['right-center-content']}>
+          <img alt="Platform Logo" className={styles['ssc-logo']} src={tcssscwhite} />
+          <h2 className={styles['ssc-title']}>Welcome to TCS SovereignSecure Cloud Platform</h2>
+          <p className={styles['ssc-subtitle']}>Enterprise Cloud Portal</p>
+        </div>
+        {/* <div className={styles['right-footer']}>
+          Copyright © 2026 Tata Consultancy Services
+        </div> */}
       </div>
     );
   }
@@ -50,6 +59,7 @@ export class AuthLayout extends Component {
   render() {
     return (
       <div className={styles.container}>
+        {this.renderRight()}
         <div className={styles.left}>
           <div className={styles.lang}>
             <SelectLang />
@@ -57,13 +67,12 @@ export class AuthLayout extends Component {
           <div className={styles.main}>
             <div className={styles.top}>
               <div className={styles.header}>
-                <img alt="logo" className={styles.logo} src={logo} />
+                <img alt="logo" className={styles.logo} src={tcsLogo} />
               </div>
             </div>
             {renderRoutes(this.routes)}
           </div>
         </div>
-        {this.renderRight()}
       </div>
     );
   }

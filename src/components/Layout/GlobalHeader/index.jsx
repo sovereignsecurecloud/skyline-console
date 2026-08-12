@@ -14,8 +14,8 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import cloudLogo from 'asset/image/cloud-logo.svg';
-import cloudLogoWhite from 'asset/image/cloud-logo-white.svg';
+import cloudLogo from 'asset/image/ssc_black.png';
+import cloudLogoWhite from 'asset/image/ssc_white.png';
 import { getPath } from 'utils/route-map';
 import classnames from 'classnames';
 import GlobalNav from '../GlobalNav';

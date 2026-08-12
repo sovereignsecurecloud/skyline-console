@@ -18,6 +18,7 @@ import { reaction } from 'mobx';
 import ImageType from 'components/ImageType';
 import Base from 'containers/List';
 import Notify from 'components/Notify';
+import { getIpRender } from 'utils/table';
 import {
   instanceStatus,
   transitionStatus,
@@ -194,12 +195,7 @@ export class Instance extends Base {
         dataIndex: 'fixed_addresses',
         sorter: false,
         isHideable: true,
-        render: (fixed_addresses) => {
-          if (!fixed_addresses.length) {
-            return '-';
-          }
-          return fixed_addresses.map((it) => <div key={it}>{it}</div>);
-        },
+        render: (fixed_addresses) => getIpRender(fixed_addresses),
         stringify: (value) => value.join(',') || '-',
       },
       {
@@ -207,17 +203,7 @@ export class Instance extends Base {
         dataIndex: 'floating_addresses',
         isHideable: true,
         sorter: false,
-        render: (addresses) => {
-          if (!addresses.length) {
-            return '-';
-          }
-          return addresses.map((it) => (
-            <div key={it}>
-              {it}
-              <br />
-            </div>
-          ));
-        },
+        render: (addresses) => getIpRender(addresses),
         stringify: (addresses) => addresses.join(',') || '-',
       },
       {

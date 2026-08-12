@@ -100,7 +100,6 @@ module.exports = (env) => {
             {
               loader: 'style-loader',
             },
-            'thread-loader',
             {
               loader: 'css-loader',
             },

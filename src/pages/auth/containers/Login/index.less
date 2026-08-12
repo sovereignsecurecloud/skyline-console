@@ -1,30 +1,162 @@
 @import '~styles/variables';
 
-.register {
-  float: right;
+.login-card-content {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
 }
 
 .welcome {
-  margin-top: 24px;
-  margin-bottom: 24px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.6px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.subwelcome {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 28px;
+  text-align: center;
 }
 
 .login-form {
-  width: 310px;
+  width: 100%;
+
+  :global {
+    .ant-form-item {
+      margin-bottom: 20px;
+    }
+
+    .ant-form-item-label > label {
+      font-weight: 600;
+      color: #334155;
+      font-size: 13px;
+    }
+
+    /* Outer password wrapper, standalone inputs, and select selector */
+    .ant-input-affix-wrapper,
+    input.ant-input:not(.ant-input-affix-wrapper .ant-input),
+    .ant-select-selector {
+      border-radius: 8px !important;
+      height: 44px !important;
+      font-size: 14px;
+      transition: all 0.2s ease-in-out;
+      border-color: #cbd5e1 !important;
+      background-color: #ffffff !important;
+
+      &:hover,
+      &:focus,
+      &-focused {
+        border-color: @primary-color !important;
+        box-shadow: 0 0 0 3px rgba(12, 99, 250, 0.15) !important;
+      }
+    }
+
+    /* Standalone input padding & line height */
+    input.ant-input:not(.ant-input-affix-wrapper .ant-input) {
+      padding: 0 14px !important;
+      line-height: 42px !important;
+    }
+
+    /* Ant Design Password Input Affix Wrapper Fix */
+    .ant-input-affix-wrapper {
+      padding: 0 14px !important;
+      display: flex !important;
+      align-items: center !important;
+
+      .ant-input {
+        border: none !important;
+        border-radius: 0 !important;
+        height: 100% !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        background: transparent !important;
+        line-height: 42px !important;
+      }
+
+      .ant-input-suffix {
+        display: flex;
+        align-items: center;
+        color: #94a3b8;
+
+        .anticon {
+          font-size: 16px;
+          cursor: pointer;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: #475569;
+          }
+        }
+      }
+    }
+
+    /* Select Component Fix */
+    .ant-select-single .ant-select-selector {
+      display: flex !important;
+      align-items: center !important;
+      padding: 0 14px !important;
+    }
+
+    .ant-select-selection-item,
+    .ant-select-selection-placeholder {
+      line-height: 42px !important;
+    }
+  }
+}
+
+.login-form-button {
+  width: 100% !important;
+  height: 44px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border-radius: 8px !important;
+  border: none !important;
+  background: linear-gradient(135deg, #0c63fa 0%, #0045c7 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px 0 rgba(12, 99, 250, 0.35);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: linear-gradient(135deg, #2675ff 0%, #0053ed 100%) !important;
+    box-shadow: 0 6px 20px 0 rgba(12, 99, 250, 0.5);
+    transform: translateY(-1px);
+    color: #ffffff !important;
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px 0 rgba(12, 99, 250, 0.35);
+  }
+}
+
+.disclaimer {
+  margin-top: 24px;
+  font-size: 12px;
+  color: #94a3b8;
+  text-align: center;
 }
 
 .login-error {
-  padding: 8px 12px;
+  padding: 10px 14px;
   color: @login-error;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.5;
-  background: #f2dede;
-  border: 1px solid @login-error;
-  border-radius: 4px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  margin-bottom: 16px;
 
   :global {
     .anticon {
       margin-right: 8px;
+      font-size: 15px;
     }
   }
 }
